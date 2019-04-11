@@ -9,6 +9,8 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
+
+import com.engsoft.robsonsouza.androidstudiosgc_puc.model.ClienteAlunoModel;
 import com.engsoft.robsonsouza.androidstudiosgc_puc.services.UserLoginTask;
 import com.engsoft.robsonsouza.androidstudiosgc_puc.viewmodels.interfaces.IMainActivityAccess;
 import com.engsoft.robsonsouza.androidstudiosgc_puc.R;
@@ -22,6 +24,12 @@ public class MainActivityViewModel extends BaseObservable {
     public MainActivityViewModel(IMainActivityAccess access) {
 
         this.access = access;
+    }
+
+    public boolean autenticarClienteAluno(ClienteAlunoModel clienteAlunoModel){
+        UserLoginTask.mAuthTask = new UserLoginTask(clienteAlunoModel.getEmail(), clienteAlunoModel.getSenha());
+        UserLoginTask.mAuthTask.execute((Void) null);
+        return true;
     }
 
 }

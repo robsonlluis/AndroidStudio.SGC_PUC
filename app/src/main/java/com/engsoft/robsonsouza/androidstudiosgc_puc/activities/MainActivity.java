@@ -1,5 +1,6 @@
 package com.engsoft.robsonsouza.androidstudiosgc_puc.activities;
 
+import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -8,11 +9,13 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.engsoft.robsonsouza.androidstudiosgc_puc.R;
 import com.engsoft.robsonsouza.androidstudiosgc_puc.databinding.ActivityMainBinding;
+import com.engsoft.robsonsouza.androidstudiosgc_puc.model.ClienteAlunoModel;
 import com.engsoft.robsonsouza.androidstudiosgc_puc.services.UserLoginTask;
 import com.engsoft.robsonsouza.androidstudiosgc_puc.viewmodels.MainActivityViewModel;
 import com.engsoft.robsonsouza.androidstudiosgc_puc.viewmodels.interfaces.IMainActivityAccess;
@@ -33,11 +36,13 @@ public class MainActivity extends AppCompatActivity implements IMainActivityAcce
     private View mProgressView;
     private View mLoginFormView;
 
+    public static Context SGC_PUC_TCCcontext;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-
+        SGC_PUC_TCCcontext = getApplicationContext();
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
         viewModel = new MainActivityViewModel(this);
@@ -53,6 +58,14 @@ public class MainActivity extends AppCompatActivity implements IMainActivityAcce
                     return true;
                 }
                 return false;
+            }
+        });
+
+        Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
+        mEmailSignInButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                attemptLogin();
             }
         });
     }
@@ -108,9 +121,10 @@ public class MainActivity extends AppCompatActivity implements IMainActivityAcce
         } else {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
-//            showProgress(true);
-            UserLoginTask.mAuthTask = new UserLoginTask(email, password);
-            UserLoginTask.mAuthTask.execute((Void) null);
+            ClienteAlunoModel clienteAlunoModel = new ClienteAlunoModel();
+            clienteAlunoModel.setEmail(email);
+            clienteAlunoModel.setSenha(password);
+            viewModel.autenticarClienteAluno(clienteAlunoModel);
         }
     }
 }

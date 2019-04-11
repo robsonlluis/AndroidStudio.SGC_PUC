@@ -4,6 +4,8 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
+import com.engsoft.robsonsouza.androidstudiosgc_puc.activities.MainActivity;
+
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -30,7 +32,6 @@ public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
         // TODO: attempt authentication against a network service.
 
         try {
-            /*
             //Robson Souza.
             //URL para acessar o REST.
             url = new URL("http://192.168.0.5:8090/api/ClienteAluno/"+mEmail+"/"+mPassword);
@@ -73,7 +74,6 @@ public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
                 //Retorna true para sucesso(credenciais válidas) e false para falha no login(credenciais invalidas).
                 return resultado.equals("True") ? true : false;
             }
-            */
         } catch (Exception e) {
             return false;
         }
@@ -84,10 +84,8 @@ public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
     @Override
     protected void onPostExecute(final Boolean success) {
         mAuthTask = null;
-        /*
-        showProgress(false);
 
-        Context contexto = getApplicationContext();
+        Context contexto = MainActivity.SGC_PUC_TCCcontext;
         String texto;
         int duracao = Toast.LENGTH_SHORT;
 
@@ -113,14 +111,11 @@ public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
             toast.show();
 
         }
-        */
+
     }
 
     @Override
     protected void onCancelled() {
         mAuthTask = null;
-        /*
-        showProgress(false);
-        */
     }
 }
